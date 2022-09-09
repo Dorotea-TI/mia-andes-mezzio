@@ -1,0 +1,23 @@
+{
+    "name": "agencycoda/mia-andes-mezzio",
+    "description": "The library for Mezzio",
+    "version": "0.0.1",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [{
+        "name": "Matias Camiletti",
+        "homepage": "https://agencycoda.com"
+    }],
+    "require": {
+        "php": "^7.3",
+        "guzzlehttp/guzzle": "^7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mia\\Andes\\": "src/"
+        }
+    },
+    "scripts": {
+        "serve": "php -S 0.0.0.0:8080 -t example/"
+    }
+}
