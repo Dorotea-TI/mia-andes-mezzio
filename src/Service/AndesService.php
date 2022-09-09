@@ -51,10 +51,10 @@ class AndesService
 
     public function uploadDocument($binaryFile)
     {
-        $request = new Request('POST', self::BASE_URL . 'Transaccion/upload/doc', ['Accept' => '*/*','Content-Type' => 'application/json','Authorization' => 'Bearer ' . $this->bearerToken]);
+        $request = new Request('POST', self::BASE_URL . 'Transaccion/upload/doc', ['Accept' => '*/*','Authorization' => 'Bearer ' . $this->bearerToken]);
         $response = $this->guzzle->send($request, ['multipart' => [['name' => 'file', 'contents' => $binaryFile, 'filename' => 'file.pdf']]]);
         
-        if($response->getStatusCode() == 200||$response->getStatusCode() == 201){
+        if($response->getStatusCode() == 200 && $response->getStatusCode() == 201){
             return json_decode($response->getBody()->getContents());
         }
     }
@@ -99,7 +99,9 @@ class AndesService
                 'Accept' => '*/*',
                 'Content-Type' => 'application/json',
                 'Authorization' => 'Bearer ' . $this->bearerToken
-            ]);
+            ],
+            $body
+        );
 
         $response = $this->guzzle->send($request);
         
