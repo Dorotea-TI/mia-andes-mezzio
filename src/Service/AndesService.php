@@ -9,7 +9,7 @@ class AndesService
     /**
      * URL de la API
      */
-    const BASE_URL = 'https://testfe.andesscd.com.co/api/';
+    const BASE_URL = 'https://fe.andesscd.com.co/api/';
     /**
      * 
      * @var string
