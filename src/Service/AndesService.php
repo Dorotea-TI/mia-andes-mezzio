@@ -10,6 +10,7 @@ class AndesService
      * URL de la API
      */
     const BASE_URL = 'https://fe.andesscd.com.co/api/';
+    const TEST_BASE_URL = 'https://testfe.andesscd.com.co/api/';
     /**
      * 
      * @var string
@@ -30,13 +31,19 @@ class AndesService
      */
     protected $guzzle;
     /**
+     *
+     * @var boolean
+     */
+    protected $testMode = false;
+    /**
      * 
      */
-    public function __construct($username, $password)
+    public function __construct($username, $password, $isTest = false)
     {
         $this->username = $username;
         $this->password = $password;
-        $this->guzzle = new \GuzzleHttp\Client(['base_uri' => self::BASE_URL]);
+        $this->testMode = $isTest;
+        $this->guzzle = new \GuzzleHttp\Client(['base_uri' => $this->getBaseUrl()]);
     }
 
     public function create($vendor, $documentId, $signer, $expire = 30)
@@ -51,7 +58,7 @@ class AndesService
 
     public function uploadDocument($binaryFile)
     {
-        $request = new Request('POST', self::BASE_URL . 'Transaccion/upload/doc', ['Accept' => '*/*','Authorization' => 'Bearer ' . $this->bearerToken]);
+        $request = new Request('POST', $this->getBaseUrl() . 'Transaccion/upload/doc', ['Accept' => '*/*','Authorization' => 'Bearer ' . $this->bearerToken]);
         $response = $this->guzzle->send($request, ['multipart' => [['name' => 'file', 'contents' => $binaryFile, 'filename' => 'file.pdf']]]);
         
         if($response->getStatusCode() == 200 && $response->getStatusCode() == 201){
@@ -71,7 +78,7 @@ class AndesService
             'password' => $this->password,
         ]);
 
-        $request = new Request('POST', self::BASE_URL . 'users/authenticate', ['Accept' => '*/*','Content-Type' => 'application/json'], $body);
+        $request = new Request('POST', $this->getBaseUrl() . 'users/authenticate', ['Accept' => '*/*','Content-Type' => 'application/json'], $body);
         $response = $this->guzzle->send($request);
         
         if($response->getStatusCode() != 200||$response->getStatusCode() != 201){
@@ -94,7 +101,7 @@ class AndesService
 
         $request = new Request(
             $method, 
-            self::BASE_URL . $path, 
+            $this->getBaseUrl() . $path, 
             [
                 'Accept' => '*/*',
                 'Content-Type' => 'application/json',
@@ -110,5 +117,13 @@ class AndesService
         }
         
         return null;
+    }
+
+    public function getBaseUrl()
+    {
+        if($this->testMode){
+            return self::TEST_BASE_URL;
+        }
+        return self::BASE_URL;
     }
 }
