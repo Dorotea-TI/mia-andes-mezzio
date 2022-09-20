@@ -81,7 +81,7 @@ class AndesService
         $request = new Request('POST', $this->getBaseUrl() . 'users/authenticate', ['Accept' => '*/*','Content-Type' => 'application/json'], $body);
         $response = $this->guzzle->send($request);
         
-        if($response->getStatusCode() != 200||$response->getStatusCode() != 201){
+        if($response->getStatusCode() != 200 && $response->getStatusCode() != 201){
             return '';
         }
 
