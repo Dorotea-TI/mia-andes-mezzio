@@ -61,7 +61,7 @@ class AndesService
         $request = new Request('POST', $this->getBaseUrl() . 'Transaccion/upload/doc', ['Accept' => '*/*','Authorization' => 'Bearer ' . $this->bearerToken]);
         $response = $this->guzzle->send($request, ['multipart' => [['name' => 'file', 'contents' => $binaryFile, 'filename' => 'file.pdf']]]);
         
-        if($response->getStatusCode() == 200 && $response->getStatusCode() == 201){
+        if($response->getStatusCode() == 200 || $response->getStatusCode() == 201){
             return json_decode($response->getBody()->getContents());
         }
     }
