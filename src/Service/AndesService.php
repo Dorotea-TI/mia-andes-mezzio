@@ -46,6 +46,11 @@ class AndesService
         $this->guzzle = new \GuzzleHttp\Client(['base_uri' => $this->getBaseUrl()]);
     }
 
+    public function getTransactionById($tId)
+    {
+        return $this->generateRequest('GET', 'Transaccion/' . $tId);
+    }
+
     public function create($vendor, $documentId, $signer, $expire = 30, $callback = '')
     {
         return $this->generateRequest('POST', 'Transaccion/create', [
