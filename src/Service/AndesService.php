@@ -46,13 +46,14 @@ class AndesService
         $this->guzzle = new \GuzzleHttp\Client(['base_uri' => $this->getBaseUrl()]);
     }
 
-    public function create($vendor, $documentId, $signer, $expire = 30)
+    public function create($vendor, $documentId, $signer, $expire = 30, $callback = '')
     {
         return $this->generateRequest('POST', 'Transaccion/create', [
             'documentoid' => $documentId,
             'Firmantes' => $signer,
             'NombreCreador' => $vendor,
-            'DiasVence' => $expire
+            'DiasVence' => $expire,
+            'Callback' => $callback
         ]);
     }
 
