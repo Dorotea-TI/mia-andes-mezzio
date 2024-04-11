@@ -1,12 +1,12 @@
 {
-    "name": "agencycoda/mia-andes-mezzio",
-    "description": "The library for Mezzio",
+    "name": "doroteati/mia-andes-mezzio",
+    "description": "The library for Mezzio and Doroteati",
     "version": "0.0.7",
     "minimum-stability": "stable",
     "license": "MIT",
     "authors": [{
-        "name": "Matias Camiletti",
-        "homepage": "https://agencycoda.com"
+        "name": "Heider Hernandez",
+        "homepage": "https://dorotea.co"
     }],
     "require": {
         "php": "^7.3",
